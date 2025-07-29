@@ -15,6 +15,7 @@ class eggDataEntry extends StatefulWidget {
 }
 
 class _eggDataEntryState extends State<eggDataEntry> {
+  int currentIndex=1;
 
   TextEditingController collectedcontroller = TextEditingController();
   TextEditingController soldcontroller = TextEditingController();
@@ -327,97 +328,66 @@ class _eggDataEntryState extends State<eggDataEntry> {
           )
 
      ),
-//bottom bar
-      bottomNavigationBar: BottomAppBar(
 
-        color: Colors.white38,
-        elevation: 2,
-        child: SizedBox(
-          height: 90,
-          child:  Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                    onPressed:(){
-                      Navigator.push(context,
-                          MaterialPageRoute(
-                          builder: (builder)=> home()
-                        )
-                      );
-                    },
-                    icon: Icon(
-                      Icons.dashboard,
+//bootom bar
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentIndex,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.green,
+          unselectedItemColor: Colors.grey,
+          onTap: (index) {
+            setState(() {
+              currentIndex=1;
+            });
 
-
+            switch (index) {
+              case 0:
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (builder)=>home()
                     )
-                ),
-
-
-                IconButton(
-                    onPressed:(){
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(
-                              builder: (builder)=> eggDataEntry()
-                          )
-                      );
-                    },
-                    icon: Icon(
-                      Icons.egg,
-                      color: Colors.green,
-
+                );
+                break;
+              case 1:
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (builder)=>eggDataEntry()
                     )
-                ),
-
-                IconButton(
-                    onPressed:(){
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(
-                              builder: (builder)=> healthDataEntry()
-                          )
-                      );
-                    },
-                    icon: Icon(
-                      Icons.sick,
-
+                );
+                break;
+              case 2:
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (builder)=>healthDataEntry()
                     )
-                ),
-
-                IconButton(
-                    onPressed:(){
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(
-                              builder: (builder)=> resource()
-                          )
-                      );
-                    },
-                    icon: Icon(
-                      Icons.water_drop_rounded,
-
+                );
+                break;
+              case 3:
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (builder)=>resource()
                     )
-                ),
-
-                IconButton(
-                    onPressed:(){
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(
-                              builder: (builder)=> history()
-                          )
-                      );
-                    },
-                    icon: Icon(
-                      Icons.history,
-
+                );
+                break;
+              case 4:
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (builder)=>history()
                     )
-                ),
+                );
+                break;
+            }
+          },
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
+            BottomNavigationBarItem(icon: Icon(Icons.egg), label: 'Egg'),
+            BottomNavigationBarItem(icon: Icon(Icons.sick), label: 'Sick'),
+            BottomNavigationBarItem(icon: Icon(Icons.restaurant), label: 'Resource'),
+            BottomNavigationBarItem(icon: Icon(Icons.history), label: 'History'),
+          ],
+        )
 
-            ],
-          ),
-        ),
-
-      )
     );
-
-
 
   }
 

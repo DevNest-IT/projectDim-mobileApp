@@ -4,11 +4,17 @@ import 'package:projectdim/home/bottom%20app%20bar/Egg.dart';
 import 'package:projectdim/home/bottom%20app%20bar/history.dart';
 import 'package:projectdim/home/bottom%20app%20bar/resource.dart';
 
-class healthDataEntry extends StatelessWidget {
-  int sick=0, deceased= 0;
-  TextEditingController sickcontroller = TextEditingController();
-  TextEditingController deceasedcontroller = TextEditingController();
+class healthDataEntry extends StatefulWidget {
+  @override
+  State<healthDataEntry> createState() => _healthDataEntryState();
+}
 
+class _healthDataEntryState extends State<healthDataEntry> {
+  int sick=0, deceased= 0,currentIndex=2;
+
+  TextEditingController sickcontroller = TextEditingController();
+
+  TextEditingController deceasedcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -330,98 +336,69 @@ class healthDataEntry extends StatelessWidget {
             )
 
         ),
-//bottom bar
-        bottomNavigationBar: BottomAppBar(
-
-          color: Colors.white38,
-          elevation: 2,
-          child: SizedBox(
-            height: 90,
-
-            child:  Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-//dashboard
-                IconButton(
-                    onPressed:(){
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(
-                              builder: (builder)=> home()
-                          )
-                      );
-                    },
-                    icon: Icon(
-                      Icons.dashboard,
 
 
+//bootom bar
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentIndex,
+
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.green,
+          unselectedItemColor: Colors.grey,
+          onTap: (index) {
+            setState(() {
+              currentIndex=index;
+
+            });
+
+            switch (index) {
+              case 0:
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (builder)=>home()
                     )
-                ),
-
-//egg data entry
-                IconButton(
-                    onPressed:(){
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(
-                              builder: (builder)=> eggDataEntry()
-                          )
-                      );
-                    },
-                    icon: Icon(
-                      Icons.egg,
-
-
+                );
+                break;
+              case 1:
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (builder)=>eggDataEntry()
                     )
-                ),
-
-//health data entry
-                IconButton(
-                    onPressed:(){
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(
-                              builder: (builder)=> healthDataEntry()
-                          )
-                      );
-                    },
-                    icon: Icon(
-                      Icons.sick,
-                      color: Colors.green,
-
+                );
+                break;
+              case 2:
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (builder)=>healthDataEntry()
                     )
-                ),
-//resourse
-                IconButton(
-                    onPressed:(){
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(
-                              builder: (builder)=> resource()
-                          )
-                      );
-                    },
-                    icon: Icon(
-                      Icons.water_drop_rounded,
-
+                );
+                break;
+              case 3:
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (builder)=>resource()
                     )
-                ),
-//history
-                IconButton(
-                    onPressed:(){
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(
-                              builder: (builder)=> history()
-                          )
-                      );
-                    },
-                    icon: Icon(
-                      Icons.history,
-
+                );
+                break;
+              case 4:
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (builder)=>history()
                     )
-                ),
-
-              ],
-            ),
-          ),
-
+                );
+                break;
+            }
+          },
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
+            BottomNavigationBarItem(icon: Icon(Icons.egg), label: 'Egg'),
+            BottomNavigationBarItem(icon: Icon(Icons.sick), label: 'Sick'),
+            BottomNavigationBarItem(icon: Icon(Icons.restaurant), label: 'Resource'),
+            BottomNavigationBarItem(icon: Icon(Icons.history), label: 'History'),
+          ],
         )
+
+
     );
   }
 }

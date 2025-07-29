@@ -4,9 +4,15 @@ import 'package:projectdim/home/bottom%20app%20bar/Egg.dart';
 import 'package:projectdim/home/bottom%20app%20bar/health.dart';
 import 'package:projectdim/home/bottom%20app%20bar/resource.dart';
 
-class history extends StatelessWidget {
+class history extends StatefulWidget {
   const history ({super.key});
 
+  @override
+  State<history> createState() => _historyState();
+}
+
+class _historyState extends State<history> {
+  int currentIndex=4;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,97 +58,65 @@ class history extends StatelessWidget {
 
 
 
-//bottom bar
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.white38,
-        elevation: 2,
-        child: SizedBox(
-          height: 90,
 
+//bootom bar
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentIndex,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.green,
+          unselectedItemColor: Colors.grey,
+          onTap: (index) {
+            setState(() {
+              currentIndex=index;
+            });
 
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                  onPressed:(){
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(
-                            builder: (builder)=> home()
-                        )
-                    );
-                  },
-                  icon: Icon(
-                    Icons.dashboard,
+            switch (index) {
+              case 0:
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (builder)=>home()
+                    )
+                );
+                break;
+              case 1:
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (builder)=>eggDataEntry()
+                    )
+                );
+                break;
+              case 2:
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (builder)=>healthDataEntry()
+                    )
+                );
+                break;
+              case 3:
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (builder)=>resource()
+                    )
+                );
+                break;
+              case 4:
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (builder)=>history()
+                    )
+                );
+                break;
+            }
+          },
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
+            BottomNavigationBarItem(icon: Icon(Icons.egg), label: 'Egg'),
+            BottomNavigationBarItem(icon: Icon(Icons.sick), label: 'Sick'),
+            BottomNavigationBarItem(icon: Icon(Icons.restaurant), label: 'Resource'),
+            BottomNavigationBarItem(icon: Icon(Icons.history), label: 'History'),
+          ],
+        )
 
-
-
-                  )
-              ),
-
-              IconButton(
-                  onPressed:(){
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(
-                            builder: (builder)=> eggDataEntry()
-                        )
-                    );
-                  },
-                  icon: Icon(
-                    Icons.egg,
-
-                  )
-              ),
-
-              IconButton(
-                  onPressed:(){
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(
-                            builder: (builder)=> healthDataEntry()
-                        )
-                    );
-                  },
-                  icon: Icon(
-                    Icons.sick,
-
-                  )
-              ),
-
-              IconButton(
-                  onPressed:(){
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(
-                            builder: (builder)=> resource()
-                        )
-                    );
-                  },
-                  icon: Icon(
-                    Icons.water_drop_rounded,
-
-                  )
-              ),
-
-              IconButton(
-                  onPressed:(){
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(
-                            builder: (builder)=> history()
-                        )
-                    );
-                  },
-                  icon: Icon(
-                    Icons.history,
-                    color: Colors.green,
-                    size: 25,
-
-                  )
-              ),
-
-
-            ],
-          ),
-        ),
-
-      ),
     );
   }
 }
